@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BlazorWorkshop.Data
@@ -48,6 +49,24 @@ namespace BlazorWorkshop.Data
             catch (Exception ex)
             {
                 return new Customer();
+            }
+        }
+
+        public static async Task AddCustomer(Customer Customer)
+        {
+            try
+            {
+                using(var http = new HttpClient())
+                {
+                    var uri = new Uri(baseURL + "api/customer");
+                    string json = JsonConvert.SerializeObject(Customer);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    await http.PostAsync(uri, content);
+                }
+            }
+            catch (Exception ex)
+            {
+                return;            
             }
         }
     }
