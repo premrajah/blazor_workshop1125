@@ -36,5 +36,18 @@ namespace BlazorWorkshop.Pages
                 SelectedCustomer = originalCustomer;
             }
         }
+
+        public async Task CustomerAdding(string Name)
+        {
+            var highest = Customers.OrderByDescending(i => i.CustomerId).Take(1).First();
+            var customer = new Customer()
+            {
+                CustomerId = highest.CustomerId + 1,
+                Name = Name
+            };
+
+            await CustomerService.AddCustomer(customer);
+            Customers = await CustomerService.GetAllCustomers();
+        }
     }
 }

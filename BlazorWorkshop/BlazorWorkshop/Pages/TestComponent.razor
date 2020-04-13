@@ -7,12 +7,20 @@
     }
 </select>
 
+<br />
+
+Add Customer:
+<br />
+<input @bind="@NewCustomerName" />
+<button class="btn btn-primary" @onclick="CustomerAdding">Add</button>
+<br />
+
 
 @if (SelectedCustomer != null)
 {
     @*<span class="text-danger mb-4">Customer @SelectedCustomer.Name &nbsp; Selected with CustomerId @SelectedCustomer.CustomerId</span>
-    <br />*@
+        <br />*@
     <input @bind="SelectedCustomer.Name" @bind:event="oninput" />
-    <button class="btn btn-primary" @onclick="ResetButtonClicked">Reset</button>
+    <button class="btn btn-danger" @onclick="ResetButtonClicked">Reset</button>
 }
 
