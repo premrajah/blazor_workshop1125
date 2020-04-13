@@ -49,6 +49,7 @@ namespace BlazorWorkshop.Pages
         public async Task CustomerAdding()
         {
             await AddCustomerEvent.InvokeAsync(NewCustomerName);
+            NewCustomerName = "";
         }
 
         

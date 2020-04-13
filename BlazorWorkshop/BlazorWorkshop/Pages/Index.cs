@@ -39,15 +39,22 @@ namespace BlazorWorkshop.Pages
 
         public async Task CustomerAdding(string Name)
         {
-            var highest = Customers.OrderByDescending(i => i.CustomerId).Take(1).First();
-            var customer = new Customer()
+            if (!string.IsNullOrEmpty(Name))
             {
-                CustomerId = highest.CustomerId + 1,
-                Name = Name
-            };
+                var highest = Customers.OrderByDescending(i => i.CustomerId).Take(1).First();
+                var customer = new Customer()
+                {
+                    CustomerId = highest.CustomerId + 1,
+                    Name = Name
+                };
 
-            await CustomerService.AddCustomer(customer);
-            Customers = await CustomerService.GetAllCustomers();
+                await CustomerService.AddCustomer(customer);
+                Customers = await CustomerService.GetAllCustomers();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }
