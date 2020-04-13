@@ -1,28 +1,8 @@
 ﻿@page "/"
-@using Models;
+@inherits IndexCode
 
 Customers:
 <TestComponent Customers="Customers" CustomerSelectEvent="CustomerSelected"></TestComponent>
 <br />
 <span class="mt-4 text-success">@DisplayMessage</span>
 
-@code {
-
-    string DisplayMessage = "";
-
-    void CustomerSelected(Customer customer)
-    {
-        DisplayMessage = $"Event Raised. Customer Selected: {customer.Name}";
-    }
-
-    List<Customer> Customers = new List<Customer>();
-
-    protected override void OnInitialized()
-    {
-        Customers.Add( new Customer { CustomerId = 1, Name = "Isadora Jarr" } );
-        Customers.Add(new Customer { CustomerId = 2, Name = "Ben Slackin" });
-        Customers.Add(new Customer { CustomerId = 3, Name = "Doo Fuss" });
-    }
-
-
-}

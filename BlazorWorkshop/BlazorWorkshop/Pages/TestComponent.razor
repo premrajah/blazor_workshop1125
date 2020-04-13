@@ -1,4 +1,4 @@
-﻿@using Models;
+﻿@inherits TestComponentCode
 
 <select @onchange="CustomerSelected" size="4" style="width: 100%">
     @foreach (var customer in Customers)
@@ -10,31 +10,8 @@
 
 @if (SelectedCustomer != null)
 {
-    <span class="text-danger mb-4">Customer @SelectedCustomer.Name &nbsp; Selected with CustomerId @SelectedCustomer.CustomerId</span>
-    <br />
+    @*<span class="text-danger mb-4">Customer @SelectedCustomer.Name &nbsp; Selected with CustomerId @SelectedCustomer.CustomerId</span>
+    <br />*@
     <input @bind="SelectedCustomer.Name" @bind:event="oninput" />
 }
 
-@code {
-
-    [Parameter]
-    public List<Customer> Customers { get; set; } = new List<Customer>();
-
-    [Parameter]
-    public EventCallback<Customer> CustomerSelectEvent { get; set; }
-
-    Customer SelectedCustomer;
-
-
-
-    async Task CustomerSelected(ChangeEventArgs args)
-    {
-        SelectedCustomer = (from x in Customers
-                            where x.CustomerId.ToString() == args.Value.ToString()
-                            select x).First();
-
-        await CustomerSelectEvent.InvokeAsync(SelectedCustomer);
-
-    }
-
-}
