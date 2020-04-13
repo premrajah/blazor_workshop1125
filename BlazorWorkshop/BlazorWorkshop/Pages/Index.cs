@@ -1,4 +1,5 @@
-﻿using BlazorWorkshop.Models;
+﻿using BlazorWorkshop.Data;
+using BlazorWorkshop.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,9 @@ namespace BlazorWorkshop.Pages
 
         public List<Customer> Customers = new List<Customer>();
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            Customers.Add(new Customer { CustomerId = 1, Name = "Isadora Jarr" });
-            Customers.Add(new Customer { CustomerId = 2, Name = "Ben Slackin" });
-            Customers.Add(new Customer { CustomerId = 3, Name = "Doo Fuss" });
+            Customers = await CustomerService.GetAllCustomers();
         }
     }
 }
