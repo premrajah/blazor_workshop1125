@@ -24,5 +24,17 @@ namespace BlazorWorkshop.Pages
         {
             Customers = await CustomerService.GetAllCustomers();
         }
+
+        public async Task CustomerResetting(int CustomerId)
+        {
+            var originalCustomer = await CustomerService.GetCustomer(CustomerId);
+
+            if (originalCustomer != null)
+            {
+                // replace the customer and reset the selected customer
+                Customers[Customers.FindIndex(x => x.CustomerId == CustomerId)] = originalCustomer;
+                SelectedCustomer = originalCustomer;
+            }
+        }
     }
 }

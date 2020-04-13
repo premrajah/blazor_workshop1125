@@ -1,4 +1,5 @@
-﻿using BlazorWorkshop.Models;
+﻿using BlazorWorkshop.Data;
+using BlazorWorkshop.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,18 @@ namespace BlazorWorkshop.Pages
 {
     public class TestComponentCode : ComponentBase
     {
-        public Customer SelectedCustomer;
 
         [Parameter]
         public List<Customer> Customers { get; set; } = new List<Customer>();
 
         [Parameter]
         public EventCallback<Customer> CustomerSelectEvent { get; set; }
+
+        [Parameter]
+        public Customer SelectedCustomer { get; set; }
+
+        [Parameter]
+        public EventCallback<int> CustomerResetEvent { get; set; }
 
 
         public async Task CustomerSelected(ChangeEventArgs args)
@@ -27,5 +33,12 @@ namespace BlazorWorkshop.Pages
             await CustomerSelectEvent.InvokeAsync(SelectedCustomer);
 
         }
+
+        public async Task ResetButtonClicked()
+        {
+            await CustomerResetEvent.InvokeAsync(SelectedCustomer.CustomerId);
+        }
+
+        
     }
 }

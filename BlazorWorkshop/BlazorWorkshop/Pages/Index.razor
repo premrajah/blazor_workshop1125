@@ -2,7 +2,10 @@
 @inherits IndexCode
 
 Customers:
-<TestComponent Customers="Customers" SelectedCustomer="SelectedCustomer" CustomerSelectEvent="CustomerSelected"></TestComponent>
+<TestComponent Customers="Customers" 
+               SelectedCustomer="SelectedCustomer" 
+               CustomerSelectEvent="CustomerSelected"
+               CustomerResetEvent="CustomerResetting"></TestComponent>
 
 
 @if(SelectedCustomer != null)
