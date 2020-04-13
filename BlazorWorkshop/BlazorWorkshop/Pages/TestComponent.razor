@@ -20,18 +20,20 @@
     [Parameter]
     public List<Customer> Customers { get; set; } = new List<Customer>();
 
+    [Parameter]
+    public EventCallback<Customer> CustomerSelectEvent { get; set; }
+
     Customer SelectedCustomer;
-    //string DisplayMessage = "";
 
 
 
-    void CustomerSelected(ChangeEventArgs args)
+    async Task CustomerSelected(ChangeEventArgs args)
     {
         SelectedCustomer = (from x in Customers
                             where x.CustomerId.ToString() == args.Value.ToString()
                             select x).First();
 
-        //DisplayMessage = $"Customer {SelectedCustomer.Name} selected with CustomerId {SelectedCustomer.CustomerId}";
+        await CustomerSelectEvent.InvokeAsync(SelectedCustomer);
 
     }
 
