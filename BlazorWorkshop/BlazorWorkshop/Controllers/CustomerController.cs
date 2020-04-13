@@ -51,24 +51,25 @@ namespace BlazorWorkshop.Controllers
         [HttpGet]
         public IEnumerable<Customer> Get()
         {
-            return GetAllCustomers();
+            return Customers;
         }
 
         // GET: api/Customer/5
         [HttpGet("{id}", Name = "Get")]
         public Customer Get(int id)
         {
-            var customers = GetAllCustomers();
 
-            return (from x in customers
+            return (from x in Customers
                     where x.CustomerId == id
                     select x).FirstOrDefault();
         }
 
         // POST: api/Customer
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Customer value)
         {
+            Customers.Add(value);
+            SaveData();
         }
 
         // PUT: api/Customer/5
