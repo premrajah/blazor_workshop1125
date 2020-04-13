@@ -5,13 +5,43 @@ using System.Threading.Tasks;
 using BlazorWorkshop.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BlazorWorkshop.Controllers
 {
+
+    
+
     [Route("api/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
+
+        // local saving (cheating)
+        private List<Customer> Customers;
+        private string customerDataFile = "";
+
+        private void LoadData()
+        {
+            customerDataFile = Environment.CurrentDirectory + @"\customers.json";
+            if(!System.IO.File.Exists(customerDataFile))
+            {
+                Customers = GetAllCustomers();
+                SaveData();
+            }
+            else
+            {
+                var json = System.IO.File.ReadAllText(customerDataFile);
+                Customers = JsonConvert.DeserializeObject<List<Customer>>(json);
+            }
+        }
+
+        private void SaveData()
+        {
+            var json = JsonConvert.SerializeObject(Customers);
+            System.IO.File.WriteAllText(customerDataFile, json);
+        }
+
         // GET: api/Customer
         [HttpGet]
         public IEnumerable<Customer> Get()
@@ -48,17 +78,20 @@ namespace BlazorWorkshop.Controllers
         {
         }
 
-        private IEnumerable<Customer> GetAllCustomers()
+        private List<Customer> GetAllCustomers()
         {
-            var Customers = new List<Customer>();
-            Customers.Add(new Customer { CustomerId = 1, Name = "Isadora Jarr" });
-            Customers.Add(new Customer { CustomerId = 2, Name = "Ben Slackin" });
-            Customers.Add(new Customer { CustomerId = 3, Name = "Doo Fuss" });
-            Customers.Add(new Customer { CustomerId = 4, Name = "Hugh Jass" });
-            Customers.Add(new Customer { CustomerId = 5, Name = "Donatella Nawan" });
-            Customers.Add(new Customer { CustomerId = 6, Name = "Pykop Andropov" });
+            if(Customers == null)
+            {
+                Customers = new List<Customer>();
 
-
+                Customers.Add(new Customer { CustomerId = 1, Name = "Isadora Jarr" });
+                Customers.Add(new Customer { CustomerId = 2, Name = "Ben Slackin" });
+                Customers.Add(new Customer { CustomerId = 3, Name = "Doo Fuss" });
+                Customers.Add(new Customer { CustomerId = 4, Name = "Hugh Jass" });
+                Customers.Add(new Customer { CustomerId = 5, Name = "Donatella Nawan" });
+                Customers.Add(new Customer { CustomerId = 6, Name = "Pykop Andropov" });
+            }
+            
             return Customers;
         }
 
