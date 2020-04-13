@@ -37,10 +37,13 @@ namespace BlazorWorkshop.Data
         {
             try
             {
-                var uri = new Uri(baseURL + "api/customer/" + CustomerId.ToString());
-                string json = await http.GetStringAsync(uri);
-                var customer = JsonConvert.DeserializeObject<Customer>(json);
-                return customer;
+                using(var http = new HttpClient())
+                {
+                    var uri = new Uri(baseURL + "api/customer/" + CustomerId.ToString());
+                    string json = await http.GetStringAsync(uri);
+                    var customer = JsonConvert.DeserializeObject<Customer>(json);
+                    return customer;
+                }
             }
             catch (Exception ex)
             {
