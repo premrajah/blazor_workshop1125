@@ -54,6 +54,7 @@ namespace BlazorWorkshop
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapControllers();
             });
         }
     }
