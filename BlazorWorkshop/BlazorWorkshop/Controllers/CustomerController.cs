@@ -21,6 +21,11 @@ namespace BlazorWorkshop.Controllers
         private List<Customer> Customers;
         private string customerDataFile = "";
 
+        public CustomerController()
+        {
+            LoadData();
+        }
+
         private void LoadData()
         {
             customerDataFile = Environment.CurrentDirectory + @"\customers.json";
