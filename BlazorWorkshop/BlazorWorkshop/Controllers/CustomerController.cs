@@ -16,19 +16,18 @@ namespace BlazorWorkshop.Controllers
         [HttpGet]
         public IEnumerable<Customer> Get()
         {
-            var Customers = new List<Customer>();
-            Customers.Add(new Customer { CustomerId = 1, Name = "Isadora Jarr" });
-            Customers.Add(new Customer { CustomerId = 2, Name = "Ben Slackin" });
-            Customers.Add(new Customer { CustomerId = 3, Name = "Doo Fuss" });
-
-            return Customers;
+            return GetAllCustomers();
         }
 
         // GET: api/Customer/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Customer Get(int id)
         {
-            return "value";
+            var customers = GetAllCustomers();
+
+            return (from x in customers
+                    where x.CustomerId == id
+                    select x).FirstOrDefault();
         }
 
         // POST: api/Customer
@@ -48,5 +47,22 @@ namespace BlazorWorkshop.Controllers
         public void Delete(int id)
         {
         }
+
+        private IEnumerable<Customer> GetAllCustomers()
+        {
+            var Customers = new List<Customer>();
+            Customers.Add(new Customer { CustomerId = 1, Name = "Isadora Jarr" });
+            Customers.Add(new Customer { CustomerId = 2, Name = "Ben Slackin" });
+            Customers.Add(new Customer { CustomerId = 3, Name = "Doo Fuss" });
+            Customers.Add(new Customer { CustomerId = 4, Name = "Hugh Jass" });
+            Customers.Add(new Customer { CustomerId = 5, Name = "Donatella Nawan" });
+            Customers.Add(new Customer { CustomerId = 6, Name = "Pykop Andropov" });
+
+
+            return Customers;
+        }
+
+
+
     }
 }

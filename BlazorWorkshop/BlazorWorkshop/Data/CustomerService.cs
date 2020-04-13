@@ -7,7 +7,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace BlazorWorkshop.Data
-{
+{   
+    
+
     public class CustomerService
     {
         /// TODO: Change this to use your app's port number
@@ -28,6 +30,21 @@ namespace BlazorWorkshop.Data
             catch (Exception ex)
             {
                 return new List<Customer>();
+            }
+        }
+
+        public static async Task<Customer> GetCustomer(int CustomerId)
+        {
+            try
+            {
+                var uri = new Uri(baseURL + "api/customer/" + CustomerId.ToString());
+                string json = await http.GetStringAsync(uri);
+                var customer = JsonConvert.DeserializeObject<Customer>(json);
+                return customer;
+            }
+            catch (Exception ex)
+            {
+                return new Customer();
             }
         }
     }

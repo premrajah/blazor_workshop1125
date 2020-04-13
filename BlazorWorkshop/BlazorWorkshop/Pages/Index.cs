@@ -10,14 +10,15 @@ namespace BlazorWorkshop.Pages
 {
     public class IndexCode : ComponentBase
     {
-        public string DisplayMessage = "";
+        public List<Customer> Customers = new List<Customer>();
+
+        public Customer SelectedCustomer;
 
         public void CustomerSelected(Customer customer)
         {
-            DisplayMessage = $"Event Raised. Customer Selected: {customer.Name}";
+            SelectedCustomer = customer;
         }
 
-        public List<Customer> Customers = new List<Customer>();
 
         protected override async Task OnInitializedAsync()
         {

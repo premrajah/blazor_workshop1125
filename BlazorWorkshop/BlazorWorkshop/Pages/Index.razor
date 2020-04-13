@@ -3,6 +3,11 @@
 
 Customers:
 <TestComponent Customers="Customers" CustomerSelectEvent="CustomerSelected"></TestComponent>
-<br />
-<span class="mt-4 text-success">@DisplayMessage</span>
 
+
+@if(SelectedCustomer != null)
+{
+    <br />
+    <span class="mt-4 text-success">@SelectedCustomer.Name</span>
+
+}
