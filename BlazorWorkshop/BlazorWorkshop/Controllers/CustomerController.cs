@@ -74,8 +74,10 @@ namespace BlazorWorkshop.Controllers
 
         // PUT: api/Customer/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Customer value)
         {
+            Customers[Customers.FindIndex(x => x.CustomerId == id)] = value;
+            SaveData();
         }
 
         // DELETE: api/ApiWithActions/5

@@ -26,7 +26,11 @@ namespace BlazorWorkshop.Pages
         [Parameter]
         public EventCallback<string> AddCustomerEvent { get; set; }
 
+        [Parameter]
+        public EventCallback<Customer> UpdateCustomerEvent { get; set; }
+
         public string NewCustomerName = "";
+
 
 
 
@@ -52,6 +56,12 @@ namespace BlazorWorkshop.Pages
             NewCustomerName = "";
         }
 
-        
+        public async Task UpdateButtonClicked()
+        {
+            await UpdateCustomerEvent.InvokeAsync(SelectedCustomer);
+        }
+
+
+
     }
 }

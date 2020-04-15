@@ -56,5 +56,11 @@ namespace BlazorWorkshop.Pages
                 return;
             }
         }
+
+        public async Task CustomerUpdating(Customer Customer)
+        {
+            await CustomerService.UpdateCustomer(Customer);
+            Customers = await CustomerService.GetAllCustomers();
+        }
     }
 }
