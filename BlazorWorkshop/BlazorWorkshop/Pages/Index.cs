@@ -62,5 +62,11 @@ namespace BlazorWorkshop.Pages
             await CustomerService.UpdateCustomer(Customer);
             Customers = await CustomerService.GetAllCustomers();
         }
+
+        public async Task CustomerDeleting(int CustomerId)
+        {
+            await CustomerService.DeleteCustomer(CustomerId);
+            Customers = await CustomerService.GetAllCustomers();
+        }
     }
 }

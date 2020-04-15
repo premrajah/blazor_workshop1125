@@ -72,17 +72,46 @@ namespace BlazorWorkshop.Data
 
         public static async Task UpdateCustomer(Customer Customer)
         {
-            using(var http = new HttpClient())
+            try
             {
-                var uri = new Uri(baseURL + "api/customer/" + Customer.CustomerId.ToString());
-                string json = JsonConvert.SerializeObject(Customer);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var result = await http.PutAsync(uri, content);
-
-                if(result.StatusCode != System.Net.HttpStatusCode.OK)
+                using (var http = new HttpClient())
                 {
-                    throw new Exception("Customer was not updated");
+                    var uri = new Uri(baseURL + "api/customer/" + Customer.CustomerId.ToString());
+                    string json = JsonConvert.SerializeObject(Customer);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var result = await http.PutAsync(uri, content);
+
+                    if (result.StatusCode != System.Net.HttpStatusCode.OK)
+                    {
+                        throw new Exception("Customer was not updated");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
+                return;
+            }
+        }
+
+        public static async Task DeleteCustomer(int CustomerId)
+        {
+            try
+            {
+                using(var http = new HttpClient())
+                {
+                    var uri = new Uri(baseURL + "api/customer/" + CustomerId.ToString());
+                    var result = await http.DeleteAsync(uri);
+
+                    if(result.StatusCode != System.Net.HttpStatusCode.OK)
+                    {
+                        throw new Exception("Customer could not be deleted");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
             }
         }
     }

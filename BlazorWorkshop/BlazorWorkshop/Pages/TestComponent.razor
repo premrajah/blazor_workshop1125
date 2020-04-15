@@ -22,8 +22,9 @@ Add Customer:
         <br />*@
     <div class="p-3" style="background-color: lightgray">
         <input @bind="@SelectedCustomer.Name" @bind:event="oninput" />
-        <button class="btn btn-danger" @onclick="ResetButtonClicked">Reset</button>
+        <button class="btn btn-warning" @onclick="ResetButtonClicked">Reset</button>
         <button class="btn btn-secondary" @onclick="UpdateButtonClicked">Update</button>
+        <button class="btn btn-danger" @onclick="DeleteButtonClicked">Delete</button>
     </div>
 }
 

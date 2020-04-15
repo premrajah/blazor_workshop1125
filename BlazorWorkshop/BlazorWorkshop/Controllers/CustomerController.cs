@@ -84,6 +84,9 @@ namespace BlazorWorkshop.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var customer = Customers[Customers.FindIndex(x => x.CustomerId == id)];
+            Customers.Remove(customer);
+            SaveData();
         }
 
         private List<Customer> GetAllCustomers()
