@@ -66,7 +66,7 @@ namespace BlazorWorkshop.Data
             }
             catch (Exception ex)
             {
-                return;            
+                throw new Exception($"Add customer exception {ex.Message}");        
             }
         }
 
@@ -90,7 +90,7 @@ namespace BlazorWorkshop.Data
             catch (Exception ex)
             {
 
-                return;
+                throw new Exception($"update customer exception {ex.Message}");
             }
         }
 
@@ -111,7 +111,7 @@ namespace BlazorWorkshop.Data
             }
             catch (Exception ex)
             {
-                return;
+                throw new Exception($"Delete customer exceptio {ex.Message}");
             }
         }
     }
