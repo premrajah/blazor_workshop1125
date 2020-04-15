@@ -1,11 +1,18 @@
 ﻿@inherits TestComponentCode
 
-<select @onchange="CustomerSelected" size="4" style="width: 100%">
-    @foreach (var customer in @Customers)
-    {
-        <option value="@customer.CustomerId.ToString()">@customer.Name</option>
-    }
-</select>
+    <select @onchange="CustomerSelected" size="4" style="width: 100%">
+        @foreach (var customer in @Customers)
+        {
+            if (SelectedCustomer != null && customer.CustomerId == SelectedCustomer.CustomerId)
+            {
+                <option selected value="@customer.CustomerId.ToString()">@customer.Name</option>
+            }
+            else
+            {
+                <option value="@customer.CustomerId.ToString()">@customer.Name</option>
+            }
+        }
+    </select>
 
 <br />
 
@@ -23,12 +30,12 @@
 
 
             Name:
-            <InputText id="name" @bind-Value="@SelectedCustomer.Name" />
+            <InstantInput id="name" @bind-Value="@SelectedCustomer.Name" />
 
             <br /><br />
 
             Email:
-            <InputText id="email" @bind-Value="@SelectedCustomer.Email" />
+            <InstantInput id="email" @bind-Value="@SelectedCustomer.Email" />
             
             <br /><br />
 
