@@ -84,9 +84,16 @@ namespace BlazorWorkshop.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var customer = Customers[Customers.FindIndex(x => x.CustomerId == id)];
-            Customers.Remove(customer);
-            SaveData();
+            var customer = (from x in Customers
+                            where x.CustomerId == id
+                            select x).FirstOrDefault();
+
+            if(customer != null)
+            {
+                Customers.Remove(customer);
+                SaveData();
+            }
+            
         }
 
         private List<Customer> GetAllCustomers()
@@ -95,12 +102,12 @@ namespace BlazorWorkshop.Controllers
             {
                 Customers = new List<Customer>();
 
-                Customers.Add(new Customer { CustomerId = 1, Name = "Isadora Jarr" });
-                Customers.Add(new Customer { CustomerId = 2, Name = "Ben Slackin" });
-                Customers.Add(new Customer { CustomerId = 3, Name = "Doo Fuss" });
-                Customers.Add(new Customer { CustomerId = 4, Name = "Hugh Jass" });
-                Customers.Add(new Customer { CustomerId = 5, Name = "Donatella Nawan" });
-                Customers.Add(new Customer { CustomerId = 6, Name = "Pykop Andropov" });
+                Customers.Add(new Customer { CustomerId = 1, Name = "Isadora Jarr", Email="isadora@jarr.com" });
+                Customers.Add(new Customer { CustomerId = 2, Name = "Ben Slackin", Email = "ben@slackin.com" });
+                Customers.Add(new Customer { CustomerId = 3, Name = "Doo Fuss", Email = "doo@fuss.com" });
+                Customers.Add(new Customer { CustomerId = 4, Name = "Hugh Jass", Email = "huge@jass.com" });
+                Customers.Add(new Customer { CustomerId = 5, Name = "Donatella Nawan", Email = "donatella@nawan.com" });
+                Customers.Add(new Customer { CustomerId = 6, Name = "Pykop Andropov", Email = "pykop@andropov.com" });
             }
             
             return Customers;

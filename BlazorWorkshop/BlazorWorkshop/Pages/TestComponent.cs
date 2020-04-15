@@ -24,7 +24,9 @@ namespace BlazorWorkshop.Pages
         public EventCallback<int> CustomerResetEvent { get; set; }
 
         [Parameter]
-        public EventCallback<string> AddCustomerEvent { get; set; }
+        public EventCallback<Customer> AddCustomerEvent { get; set; }
+
+        bool Adding = false;
 
         [Parameter]
         public EventCallback<Customer> UpdateCustomerEvent { get; set; }
@@ -32,9 +34,9 @@ namespace BlazorWorkshop.Pages
         [Parameter]
         public EventCallback<int> DeleteCustomerEvent { get; set; }
 
+
+        public string DisplayMessage = "";
         public string NewCustomerName = "";
-
-
 
 
 
@@ -53,15 +55,23 @@ namespace BlazorWorkshop.Pages
             await CustomerResetEvent.InvokeAsync(SelectedCustomer.CustomerId);
         }
 
-        public async Task CustomerAdding()
+        public void CustomerAdding()
         {
-            await AddCustomerEvent.InvokeAsync(NewCustomerName);
-            NewCustomerName = ""; // reset input
+            SelectedCustomer = new Customer();
+            Adding = true;
         }
 
         public async Task UpdateButtonClicked()
         {
-            await UpdateCustomerEvent.InvokeAsync(SelectedCustomer);
+            if (Adding)
+            {
+                Adding = false;
+                await AddCustomerEvent.InvokeAsync(SelectedCustomer);
+            }
+            else
+            {
+                await UpdateCustomerEvent.InvokeAsync(SelectedCustomer);
+            }
         }
 
         public async Task DeleteButtonClicked()

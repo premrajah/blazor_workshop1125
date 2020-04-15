@@ -37,24 +37,17 @@ namespace BlazorWorkshop.Pages
             }
         }
 
-        public async Task CustomerAdding(string Name)
+        public async Task CustomerAdding(Customer Customer)
         {
-            if (!string.IsNullOrEmpty(Name))
-            {
-                var highest = Customers.OrderByDescending(i => i.CustomerId).Take(1).First();
-                var customer = new Customer()
-                {
-                    CustomerId = highest.CustomerId + 1,
-                    Name = Name
-                };
+            
+            var highest = Customers.OrderByDescending(i => i.CustomerId).Take(1).First();
+            Customer.CustomerId = highest.CustomerId + 1;
 
-                await CustomerService.AddCustomer(customer);
-                Customers = await CustomerService.GetAllCustomers();
-            }
-            else
-            {
-                return;
-            }
+            await CustomerService.AddCustomer(Customer);
+            SelectedCustomer = Customer;
+
+            Customers = await CustomerService.GetAllCustomers();
+            
         }
 
         public async Task CustomerUpdating(Customer Customer)
